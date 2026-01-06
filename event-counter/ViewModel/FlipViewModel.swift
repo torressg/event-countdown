@@ -1,3 +1,11 @@
+//
+//  FlipViewModel.swift
+//  event-counter
+//
+//  Created by Guilherme Torres Vanderlei on 26/12/25.
+//
+
+
 import Combine
 import SwiftUI
 

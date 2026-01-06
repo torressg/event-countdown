@@ -9,11 +9,14 @@
 import SwiftUI
 
 struct FutureView: View {
+    
     var body: some View {
-        HStack(spacing: 8){
-            Text("Evento futuro")
-                .font(.system(size: 16, weight: .medium))
-        }.tint(.red)
+        VStack(spacing: 20) {
+            Text("Seus eventos")
+                .font(.system(size: 24, weight: .bold))
+            
+        }
+        .padding()
     }
 }
 

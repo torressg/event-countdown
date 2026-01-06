@@ -9,17 +9,37 @@ import SwiftUI
 
 struct CountdownCard: View {
     
-    @State private var countdownTitle = "Countdown name"
+    @State private var countdownTitle = "Next friday"
     @State private var isRenaming = false
     @FocusState private var isTitleFocused: Bool
-    @State private var countdownDate = Date()
+    
+    @State private var countdownDate: Date = {
+        let calendar = Calendar.current
+        let today = Date()
+        let weekday = calendar.component(.weekday, from: today)
+        let daysUntilFriday = (6 - weekday + 7) % 7
+        let nextFriday = calendar.date(byAdding: .day, value: daysUntilFriday == 0 ? 7 : daysUntilFriday, to: today) ?? today
+        return calendar.startOfDay(for: nextFriday)
+    }()
+    @State private var tempDate: Date = Date()
     @State private var showDatePicker = false
+    
+    @StateObject private var countdownClockVM: CountdownClockViewModel = {
+        let calendar = Calendar.current
+        let today = Date()
+        let weekday = calendar.component(.weekday, from: today)
+        let daysUntilFriday = (6 - weekday + 7) % 7
+        let nextFriday = calendar.date(byAdding: .day, value: daysUntilFriday == 0 ? 7 : daysUntilFriday, to: today) ?? today
+        let initialDate = calendar.startOfDay(for: nextFriday)
+        return CountdownClockViewModel(targetDate: initialDate)
+    }()
     private var formattedDate: String {
         countdownDate.formatted(
             date: .long,
             time: .shortened
         )
     }
+    
     
     var body: some View {
         VStack(spacing: 16) {
@@ -51,31 +71,31 @@ struct CountdownCard: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .onTapGesture {
-                        finishRename()
+                        tempDate = countdownDate
                         showDatePicker = true
                     }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            // Time Blocks
-            HStack(spacing: 12) {
-                FlipNumber(value: 4)
-                FlipNumber(value: 23)
-                FlipNumber(value: 43)
-            }
+            
+            CountdownClockView(viewModel: countdownClockVM)
         }
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color(.secondarySystemBackground))
         )
-        .sheet(isPresented: $showDatePicker) {
+        .sheet(isPresented: $showDatePicker, onDismiss: {
+            countdownDate = tempDate
+            countdownClockVM.targetDate = tempDate
+            countdownClockVM.updateCountdown()
+        }) {
             NavigationStack {
                 VStack(spacing: 16) {
 
                     DatePicker(
                         "Select date",
-                        selection: $countdownDate,
-                        displayedComponents: [.date]
+                        selection: $tempDate,
+                        displayedComponents: [.date, .hourAndMinute]
                     )
                     .datePickerStyle(.graphical)
 
