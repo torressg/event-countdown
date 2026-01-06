@@ -10,12 +10,6 @@ import Foundation
 
 class CountdownViewModel {
 
-    let creationDate: Date
-
-    init(creationDate: Date = Date()) {
-        self.creationDate = creationDate
-    }
-
     func differenceString(to eventDate: Date) -> String {
         let calendar = Calendar.current
 

@@ -12,6 +12,10 @@ class CountdownClockViewModel: ObservableObject {
         setupTimer()
     }
 
+    deinit {
+        cancellables.forEach { $0.cancel() }
+    }
+
     private(set) lazy var flipViewModels = { (0...7).map { _ in FlipViewModel() } }()
 
     private func setupTimer() {
@@ -33,8 +37,6 @@ class CountdownClockViewModel: ObservableObject {
                 self?.updateCountdown()
             }
             .store(in: &cancellables)
-        
-        updateCountdown()
     }
 
     func updateCountdown() {
