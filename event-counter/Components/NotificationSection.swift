@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct NotificationSection: View {
+    @EnvironmentObject var languageManager: LanguageManager
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
 
-            Text("Set a notification")
+            Text("set_notification".localized)
                 .font(.headline)
 
-            NotificationRow(type: "Email", value: "15")
-            NotificationRow(type: "Notification", value: "30")
+            NotificationRow(type: "email".localized, value: "15")
+            NotificationRow(type: "notification".localized, value: "30")
         }
     }
 }

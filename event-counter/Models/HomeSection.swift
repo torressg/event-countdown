@@ -8,8 +8,17 @@
 import Foundation
 
 enum HomeSection: String, CaseIterable, Identifiable {
-    case future = "Futuro"
-    case past = "Passado"
+    case future
+    case past
 
     var id: String { rawValue }
+    
+    var displayName: String {
+        switch self {
+        case .future:
+            return "section_future".localized
+        case .past:
+            return "section_past".localized
+        }
+    }
 }

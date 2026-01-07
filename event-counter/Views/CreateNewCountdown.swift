@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct CreateNewCountdownView: View {
+    @EnvironmentObject var languageManager: LanguageManager
+    
     var body: some View {
             ScrollView {
                 VStack(spacing: 24) {
 
-                    // Countdown Card
                     CountdownCard()
 
-                    // Notification Section
                     NotificationSection()
 
                     Spacer(minLength: 40)
 
-                    Button("Create") {}
+                    Button("create_button".localized) {}
                         .frame(maxWidth: .infinity)
                         .padding()
                         .foregroundStyle(.white)
@@ -32,6 +32,6 @@ struct CreateNewCountdownView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Countdown to")
+            .navigationTitle("countdown_to_title".localized)
             .navigationBarTitleDisplayMode(.inline)
         }}

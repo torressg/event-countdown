@@ -9,7 +9,27 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject var languageManager: LanguageManager
+    
     var body: some View {
-        Text("Configurações")
+        NavigationStack {
+            Form {
+                Section {
+                    Picker("language_setting".localized, selection: $languageManager.currentLanguage) {
+                        ForEach(AppLanguage.allCases, id: \.self) { language in
+                            Text(language.displayName).tag(language)
+                        }
+                    }
+                } header: {
+                    Text("language_setting".localized)
+                }
+            }
+            .navigationTitle("settings_title".localized)
+        }
     }
+}
+
+#Preview {
+    SettingsView()
+        .environmentObject(LanguageManager.shared)
 }

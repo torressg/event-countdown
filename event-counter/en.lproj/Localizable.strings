@@ -1,0 +1,33 @@
+"tab_home" = "Home";
+"tab_settings" = "Settings";
+
+"section_future" = "Future";
+"section_past" = "Past";
+"section_picker_label" = "Section";
+
+"new_countdown_button" = "New Countdown";
+"new_countdown_name" = "Next friday";
+"create_button" = "Create";
+"done_button" = "Done";
+"rename_button" = "Rename";
+"month_text" = "Months";
+"day_text" = "Days";
+"hour_text" = "Hours";
+
+"countdown_to_title" = "Countdown to";
+"settings_title" = "Settings";
+"select_date_title" = "Select Date";
+"your_events" = "Your events";
+
+"set_notification" = "Set a notification";
+"email" = "Email";
+"notification" = "Notification";
+
+"countdown_name_placeholder" = "Countdown name";
+"select_date" = "Select date";
+
+"language_setting" = "Language";
+"language_system" = "System";
+"language_portuguese" = "Português";
+"language_english" = "English";
+

@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var languageManager: LanguageManager
+    
     var body: some View {
         NavigationStack {
             TabView {
                 HomeView()
                     .tabItem {
-                        Label("Home", systemImage: "house")
+                        Label("tab_home".localized, systemImage: "house")
                     }
                 
                 SettingsView()
                     .tabItem {
-                        Label("Settings", systemImage: "gear")
+                        Label("tab_settings".localized, systemImage: "gear")
                     }
             }
         }
@@ -27,4 +29,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(LanguageManager.shared)
 }

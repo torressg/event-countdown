@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewCountdownButton: View {
     @State private var showCreateNewCountdown = false
+    @EnvironmentObject var languageManager: LanguageManager
 
     var body: some View {
         Button {
@@ -24,7 +25,7 @@ struct NewCountdownButton: View {
                                     )
 
 
-                Text("New Countdown")
+                Text("new_countdown_button".localized)
                     .font(.system(size: 16, weight: .medium))
             }
             .padding(.horizontal, 4)
@@ -42,4 +43,5 @@ struct NewCountdownButton: View {
 
 #Preview {
     ContentView()
+        .environmentObject(LanguageManager.shared)
 }

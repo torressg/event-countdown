@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct FutureView: View {
+    @EnvironmentObject var languageManager: LanguageManager
     
     var body: some View {
         VStack(spacing: 20) {
-            Text("Seus eventos")
+            Text("your_events".localized)
                 .font(.system(size: 24, weight: .bold))
             
         }
@@ -22,4 +23,5 @@ struct FutureView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(LanguageManager.shared)
 }

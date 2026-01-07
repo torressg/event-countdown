@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CountdownCard: View {
+    @EnvironmentObject var languageManager: LanguageManager
     
     @State private var countdownTitle = "Next friday"
     @State private var isRenaming = false
@@ -49,7 +50,7 @@ struct CountdownCard: View {
 
                 HStack {
                     if isRenaming {
-                        TextField("Countdown name", text: $countdownTitle)
+                        TextField("countdown_name_placeholder".localized, text: $countdownTitle)
                             .textFieldStyle(.plain)
                             .focused($isTitleFocused)
                             .onSubmit {
@@ -93,7 +94,7 @@ struct CountdownCard: View {
                 VStack(spacing: 16) {
 
                     DatePicker(
-                        "Select date",
+                        "select_date".localized,
                         selection: $tempDate,
                         displayedComponents: [.date, .hourAndMinute]
                     )
@@ -102,11 +103,11 @@ struct CountdownCard: View {
                     Spacer()
                 }
                 .padding()
-                .navigationTitle("Select Date")
+                .navigationTitle("select_date_title".localized)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .confirmationAction) {
-                        Button("Done") {
+                        Button("done_button".localized) {
                             showDatePicker = false
                         }
                     }

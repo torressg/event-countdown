@@ -1,0 +1,33 @@
+"tab_home" = "Início";
+"tab_settings" = "Configurações";
+
+"section_future" = "Futuro";
+"section_past" = "Passado";
+"section_picker_label" = "Seção";
+
+"new_countdown_button" = "Nova Contagem para Evento";
+"new_countdown_name" = "Próxima sexta";
+"create_button" = "Criar";
+"done_button" = "Concluir";
+"rename_button" = "Renomear";
+"month_text" = "Meses";
+"day_text" = "Dias";
+"hour_text" = "Horas";
+
+"countdown_to_title" = "Contagem regressiva para";
+"settings_title" = "Configurações";
+"select_date_title" = "Selecionar Data";
+"your_events" = "Seus eventos";
+
+"set_notification" = "Definir uma notificação";
+"email" = "E-mail";
+"notification" = "Notificação";
+
+"countdown_name_placeholder" = "Nome da contagem";
+"select_date" = "Selecionar data";
+
+"language_setting" = "Idioma";
+"language_system" = "Sistema";
+"language_portuguese" = "Português";
+"language_english" = "English";
+

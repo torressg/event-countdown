@@ -3,6 +3,7 @@ import SwiftUI
 struct CountdownClockView: View {
 
     @ObservedObject var viewModel: CountdownClockViewModel
+    @EnvironmentObject var languageManager: LanguageManager
 
     var body: some View {
         VStack(spacing: 10) {
@@ -12,7 +13,7 @@ struct CountdownClockView: View {
                         FlipView(viewModel: viewModel.flipViewModels[0])
                         FlipView(viewModel: viewModel.flipViewModels[1])
                     }
-                    Text("MESES")
+                    Text("month_text".localized,)
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(.secondary)
                 }
@@ -22,7 +23,7 @@ struct CountdownClockView: View {
                         FlipView(viewModel: viewModel.flipViewModels[2])
                         FlipView(viewModel: viewModel.flipViewModels[3])
                     }
-                    Text("DIAS")
+                    Text("day_text".localized,)
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(.secondary)
                 }
@@ -32,7 +33,7 @@ struct CountdownClockView: View {
                         FlipView(viewModel: viewModel.flipViewModels[4])
                         FlipView(viewModel: viewModel.flipViewModels[5])
                     }
-                    Text("HORAS")
+                    Text("hour_text".localized,)
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(.secondary)
                 }
@@ -42,7 +43,7 @@ struct CountdownClockView: View {
                         FlipView(viewModel: viewModel.flipViewModels[6])
                         FlipView(viewModel: viewModel.flipViewModels[7])
                     }
-                    Text("MIN")
+                    Text("Min")
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(.secondary)
                 }
