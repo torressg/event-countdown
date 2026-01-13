@@ -42,14 +42,17 @@ struct FutureView: View {
                     .padding(.top, 40)
                 } else {
                     ForEach(futureEvents) { event in
-                        CountdownCard(event: event)
-                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                Button(role: .destructive) {
-                                    deleteEvent(event)
-                                } label: {
-                                    Label("delete_event".localized, systemImage: "trash")
-                                }
+                        NavigationLink(destination: CountdownDetailView(event: event)) {
+                            CountdownEventListCard(event: event)
+                        }
+                        .buttonStyle(.plain)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                deleteEvent(event)
+                            } label: {
+                                Label("delete_event".localized, systemImage: "trash")
                             }
+                        }
                     }
                 }
             }
@@ -71,5 +74,5 @@ struct FutureView: View {
 #Preview {
     ContentView()
         .environmentObject(LanguageManager.shared)
-        .modelContainer(for: [CountdownEvent.self, EventNotification.self])
+        .modelContainer(for: [CountdownEvent.self])
 }

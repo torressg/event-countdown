@@ -42,14 +42,17 @@ struct PastView: View {
                     .padding(.top, 40)
                 } else {
                     ForEach(pastEvents) { event in
-                        CountdownCard(event: event)
-                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                Button(role: .destructive) {
-                                    deleteEvent(event)
-                                } label: {
-                                    Label("delete_event".localized, systemImage: "trash")
-                                }
+                        NavigationLink(destination: CountdownDetailView(event: event)) {
+                            CountdownEventListCard(event: event)
+                        }
+                        .buttonStyle(.plain)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                deleteEvent(event)
+                            } label: {
+                                Label("delete_event".localized, systemImage: "trash")
                             }
+                        }
                     }
                 }
             }

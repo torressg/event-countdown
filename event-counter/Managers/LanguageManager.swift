@@ -61,7 +61,8 @@ class LanguageManager: ObservableObject {
         let languageCode: String
         
         if currentLanguage == .system {
-            languageCode = Locale.current.language.languageCode?.identifier ?? "en"
+            let systemLanguage = Locale.current.language.languageCode?.identifier ?? "en"
+            languageCode = mapSystemLanguageToAppLanguage(systemLanguage)
         } else {
             languageCode = currentLanguage.code ?? "en"
         }
@@ -77,12 +78,34 @@ class LanguageManager: ObservableObject {
         }
     }
     
+    private func mapSystemLanguageToAppLanguage(_ systemCode: String) -> String {
+        switch systemCode {
+        case "pt":
+            return "pt-BR"
+        case "en":
+            return "en"
+        default:
+            return "en"
+        }
+    }
+    
     func localizedString(_ key: String) -> String {
         return bundle.localizedString(forKey: key, value: nil, table: nil)
     }
     
     func setLanguage(_ language: AppLanguage) {
         currentLanguage = language
+    }
+    
+    var currentLocale: Locale {
+        let languageCode: String
+        
+        if currentLanguage == .system {
+            return Locale.current
+        } else {
+            languageCode = currentLanguage.code ?? "en"
+            return Locale(identifier: languageCode)
+        }
     }
 }
 

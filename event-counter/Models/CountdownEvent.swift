@@ -8,15 +8,13 @@ final class CountdownEvent {
     var eventDate: Date
     var createdAt: Date
     
-    @Relationship(deleteRule: .cascade, inverse: \EventNotification.event)
-    var notifications: [EventNotification]
+    @Relationship(deleteRule: .cascade,)
     
-    init(title: String, eventDate: Date, notifications: [EventNotification] = []) {
+    init(title: String, eventDate: Date) {
         self.id = UUID()
         self.title = title
         self.eventDate = eventDate
         self.createdAt = Date()
-        self.notifications = notifications
     }
     
     var isPast: Bool {

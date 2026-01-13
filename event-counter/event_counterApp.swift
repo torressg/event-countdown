@@ -17,6 +17,6 @@ struct event_counterApp: App {
             ContentView()
                 .environmentObject(languageManager)
         }
-        .modelContainer(for: [CountdownEvent.self, EventNotification.self])
+        .modelContainer(for: [CountdownEvent.self])
     }
 }

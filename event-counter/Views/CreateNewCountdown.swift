@@ -17,15 +17,12 @@ struct CreateNewCountdownView: View {
     @State private var eventDate: Date = {
         Calendar.current.date(byAdding: .day, value: 7, to: Date()) ?? Date()
     }()
-    @State private var notifications: [EventNotification] = []
     
     var body: some View {
             ScrollView {
                 VStack(spacing: 24) {
 
                     CountdownCard(title: $eventTitle, date: $eventDate)
-
-                    NotificationSection(notifications: $notifications)
 
                     Spacer(minLength: 40)
 
@@ -51,7 +48,6 @@ struct CreateNewCountdownView: View {
         let newEvent = CountdownEvent(
             title: eventTitle.isEmpty ? "New Event" : eventTitle,
             eventDate: eventDate,
-            notifications: notifications
         )
         
         modelContext.insert(newEvent)

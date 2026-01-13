@@ -56,10 +56,11 @@ struct CountdownCard: View {
         return Date()
     }
     private var formattedDate: String {
-        displayDate.formatted(
-            date: .long,
-            time: .shortened
-        )
+        let formatter = DateFormatter()
+        formatter.locale = languageManager.currentLocale
+        formatter.dateStyle = .long
+        formatter.timeStyle = .short
+        return formatter.string(from: displayDate)
     }
     
     var body: some View {

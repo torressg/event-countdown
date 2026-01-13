@@ -36,3 +36,15 @@
 "delete_event" = "Excluir";
 "past_events" = "Eventos passados";
 
+
+"elapsed_days_label" = "Dias";
+"elapsed_hours_label" = "Horas";
+"elapsed_minutes_label" = "Minutos";
+"elapsed_seconds_label" = "Segundos";
+
+"event_details" = "Detalhes do evento";
+"save_changes" = "Salvar alterações";
+"delete_event_confirmation" = "Excluir evento?";
+"delete_event_message" = "Esta ação não pode ser desfeita.";
+"cancel" = "Cancelar";
+"delete" = "Excluir";

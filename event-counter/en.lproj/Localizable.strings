@@ -36,3 +36,15 @@
 "delete_event" = "Delete";
 "past_events" = "Past events";
 
+
+"elapsed_days_label" = "Days";
+"elapsed_hours_label" = "Hours";
+"elapsed_minutes_label" = "Minutes";
+"elapsed_seconds_label" = "Seconds";
+
+"event_details" = "Event details";
+"save_changes" = "Save changes";
+"delete_event_confirmation" = "Delete event?";
+"delete_event_message" = "This action cannot be undone.";
+"cancel" = "Cancel";
+"delete" = "Delete";
