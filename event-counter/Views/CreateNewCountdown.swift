@@ -6,21 +6,32 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CreateNewCountdownView: View {
     @EnvironmentObject var languageManager: LanguageManager
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
+    
+    @State private var eventTitle: String = ""
+    @State private var eventDate: Date = {
+        Calendar.current.date(byAdding: .day, value: 7, to: Date()) ?? Date()
+    }()
+    @State private var notifications: [EventNotification] = []
     
     var body: some View {
             ScrollView {
                 VStack(spacing: 24) {
 
-                    CountdownCard()
+                    CountdownCard(title: $eventTitle, date: $eventDate)
 
-                    NotificationSection()
+                    NotificationSection(notifications: $notifications)
 
                     Spacer(minLength: 40)
 
-                    Button("create_button".localized) {}
+                    Button("create_button".localized) {
+                        saveEvent()
+                    }
                         .frame(maxWidth: .infinity)
                         .padding()
                         .foregroundStyle(.white)
@@ -34,4 +45,22 @@ struct CreateNewCountdownView: View {
             }
             .navigationTitle("countdown_to_title".localized)
             .navigationBarTitleDisplayMode(.inline)
-        }}
+        }
+    
+    private func saveEvent() {
+        let newEvent = CountdownEvent(
+            title: eventTitle.isEmpty ? "New Event" : eventTitle,
+            eventDate: eventDate,
+            notifications: notifications
+        )
+        
+        modelContext.insert(newEvent)
+        
+        do {
+            try modelContext.save()
+            dismiss()
+        } catch {
+            print("Failed to save event: \(error)")
+        }
+    }
+}

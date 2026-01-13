@@ -31,3 +31,8 @@
 "language_portuguese" = "Português";
 "language_english" = "English";
 
+"no_future_events" = "Nenhum evento futuro";
+"no_past_events" = "Nenhum evento passado";
+"delete_event" = "Excluir";
+"past_events" = "Eventos passados";
+

@@ -9,16 +9,42 @@ import SwiftUI
 
 struct NotificationSection: View {
     @EnvironmentObject var languageManager: LanguageManager
+    @Binding var notifications: [EventNotification]
+    
+    @State private var showAddNotification = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
 
-            Text("set_notification".localized)
-                .font(.headline)
+            HStack {
+                Text("set_notification".localized)
+                    .font(.headline)
+                
+                Spacer()
+                
+                Button {
+                    addNotification()
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                        .foregroundStyle(.green)
+                }
+            }
 
-            NotificationRow(type: "email".localized, value: "15")
-            NotificationRow(type: "notification".localized, value: "30")
+            ForEach(notifications.indices, id: \.self) { index in
+                NotificationRow(
+                    type: notifications[index].type,
+                    value: String(notifications[index].minutesBefore),
+                    onDelete: {
+                        notifications.remove(at: index)
+                    }
+                )
+            }
         }
+    }
+    
+    private func addNotification() {
+        let newNotification = EventNotification(type: "notification", minutesBefore: 15)
+        notifications.append(newNotification)
     }
 }
 

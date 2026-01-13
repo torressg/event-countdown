@@ -10,6 +10,7 @@ import SwiftUI
 struct NotificationRow: View {
     let type: String
     let value: String
+    var onDelete: () -> Void
 
     var body: some View {
         HStack(spacing: 8) {
@@ -29,6 +30,7 @@ struct NotificationRow: View {
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.black.opacity(0.3)))
 
             Button {
+                onDelete()
             } label: {
                 Image(systemName: "xmark")
                     .padding(8)

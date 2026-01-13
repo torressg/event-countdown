@@ -7,21 +7,69 @@
 
 
 import SwiftUI
+import SwiftData
 
 struct FutureView: View {
     @EnvironmentObject var languageManager: LanguageManager
+    @Environment(\.modelContext) private var modelContext
+    
+    @Query(sort: \CountdownEvent.eventDate, order: .forward)
+    private var allEvents: [CountdownEvent]
+    
+    private var futureEvents: [CountdownEvent] {
+        let now = Date()
+        return allEvents.filter { $0.eventDate >= now }
+    }
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text("your_events".localized)
-                .font(.system(size: 24, weight: .bold))
-            
+        ScrollView {
+            VStack(spacing: 20) {
+                Text("your_events".localized)
+                    .font(.system(size: 24, weight: .bold))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                if futureEvents.isEmpty {
+                    VStack(spacing: 12) {
+                        Image(systemName: "calendar.badge.clock")
+                            .font(.system(size: 60))
+                            .foregroundStyle(.secondary)
+                        
+                        Text("no_future_events".localized)
+                            .font(.headline)
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 40)
+                } else {
+                    ForEach(futureEvents) { event in
+                        CountdownCard(event: event)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    deleteEvent(event)
+                                } label: {
+                                    Label("delete_event".localized, systemImage: "trash")
+                                }
+                            }
+                    }
+                }
+            }
+            .padding()
         }
-        .padding()
+    }
+    
+    private func deleteEvent(_ event: CountdownEvent) {
+        modelContext.delete(event)
+        
+        do {
+            try modelContext.save()
+        } catch {
+            print("Failed to delete event: \(error)")
+        }
     }
 }
 
 #Preview {
     ContentView()
         .environmentObject(LanguageManager.shared)
+        .modelContainer(for: [CountdownEvent.self, EventNotification.self])
 }

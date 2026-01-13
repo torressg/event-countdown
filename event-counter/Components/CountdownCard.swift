@@ -6,58 +6,77 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CountdownCard: View {
     @EnvironmentObject var languageManager: LanguageManager
+    @Environment(\.modelContext) private var modelContext
     
-    @State private var countdownTitle = "Next friday"
+    var event: CountdownEvent?
+    var title: Binding<String>?
+    var date: Binding<Date>?
+    
     @State private var isRenaming = false
     @FocusState private var isTitleFocused: Bool
-    
-    @State private var countdownDate: Date = {
-        let calendar = Calendar.current
-        let today = Date()
-        let weekday = calendar.component(.weekday, from: today)
-        let daysUntilFriday = (6 - weekday + 7) % 7
-        let nextFriday = calendar.date(byAdding: .day, value: daysUntilFriday == 0 ? 7 : daysUntilFriday, to: today) ?? today
-        return calendar.startOfDay(for: nextFriday)
-    }()
     @State private var tempDate: Date = Date()
     @State private var showDatePicker = false
     
-    @StateObject private var countdownClockVM: CountdownClockViewModel = {
-        let calendar = Calendar.current
-        let today = Date()
-        let weekday = calendar.component(.weekday, from: today)
-        let daysUntilFriday = (6 - weekday + 7) % 7
-        let nextFriday = calendar.date(byAdding: .day, value: daysUntilFriday == 0 ? 7 : daysUntilFriday, to: today) ?? today
-        let initialDate = calendar.startOfDay(for: nextFriday)
-        return CountdownClockViewModel(targetDate: initialDate)
-    }()
+    @StateObject private var countdownClockVM: CountdownClockViewModel
+    
+    init(event: CountdownEvent) {
+        self.event = event
+        self.title = nil
+        self.date = nil
+        self._countdownClockVM = StateObject(wrappedValue: CountdownClockViewModel(targetDate: event.eventDate))
+    }
+    
+    init(title: Binding<String>, date: Binding<Date>) {
+        self.event = nil
+        self.title = title
+        self.date = date
+        let initialDate = date.wrappedValue
+        self._countdownClockVM = StateObject(wrappedValue: CountdownClockViewModel(targetDate: initialDate))
+    }
+    
+    private var displayTitle: String {
+        if let event = event {
+            return event.title
+        } else if let title = title {
+            return title.wrappedValue
+        }
+        return "New Event"
+    }
+    
+    private var displayDate: Date {
+        if let event = event {
+            return event.eventDate
+        } else if let date = date {
+            return date.wrappedValue
+        }
+        return Date()
+    }
     private var formattedDate: String {
-        countdownDate.formatted(
+        displayDate.formatted(
             date: .long,
             time: .shortened
         )
     }
     
-    
     var body: some View {
         VStack(spacing: 16) {
             
-            // Title + Edit
             VStack(alignment: .leading, spacing: 4) {
 
                 HStack {
-                    if isRenaming {
-                        TextField("countdown_name_placeholder".localized, text: $countdownTitle)
+                    if isRenaming, let titleBinding = getEditableTitle() {
+                        TextField("countdown_name_placeholder".localized, text: titleBinding)
                             .textFieldStyle(.plain)
                             .focused($isTitleFocused)
                             .onSubmit {
                                 finishRename()
                             }
                     } else {
-                        Text(countdownTitle)
+                        Text(displayTitle)
                             .font(.headline)
                     }
 
@@ -72,7 +91,7 @@ struct CountdownCard: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .onTapGesture {
-                        tempDate = countdownDate
+                        tempDate = displayDate
                         showDatePicker = true
                     }
             }
@@ -86,7 +105,11 @@ struct CountdownCard: View {
                 .fill(Color(.secondarySystemBackground))
         )
         .sheet(isPresented: $showDatePicker, onDismiss: {
-            countdownDate = tempDate
+            if let event = event {
+                event.eventDate = tempDate
+            } else if let date = date {
+                date.wrappedValue = tempDate
+            }
             countdownClockVM.targetDate = tempDate
             countdownClockVM.updateCountdown()
         }) {
@@ -113,6 +136,17 @@ struct CountdownCard: View {
                     }
                 }
             }
+        }
+    }
+    
+    private func getEditableTitle() -> Binding<String>? {
+        if let event = event {
+            return Binding(
+                get: { event.title },
+                set: { event.title = $0 }
+            )
+        } else {
+            return title
         }
     }
     

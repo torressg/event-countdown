@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct event_counterApp: App {
@@ -16,5 +17,6 @@ struct event_counterApp: App {
             ContentView()
                 .environmentObject(languageManager)
         }
+        .modelContainer(for: [CountdownEvent.self, EventNotification.self])
     }
 }
