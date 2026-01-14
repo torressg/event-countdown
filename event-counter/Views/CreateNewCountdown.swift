@@ -13,7 +13,7 @@ struct CreateNewCountdownView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
-    @State private var eventTitle: String = ""
+    @State private var eventTitle: String = "new_countdown_name".localized
     @State private var eventDate: Date = {
         Calendar.current.date(byAdding: .day, value: 7, to: Date()) ?? Date()
     }()

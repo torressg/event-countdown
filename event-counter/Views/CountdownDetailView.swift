@@ -29,7 +29,7 @@ struct CountdownDetailView: View {
                     .foregroundStyle(.white)
                     .background(
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.red.opacity(0.35))
+                            .fill(Color.red)
                     )
                 }
             }
