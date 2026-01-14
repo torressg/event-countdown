@@ -13,6 +13,7 @@
 "month_text" = "Meses";
 "day_text" = "Dias";
 "hour_text" = "Horas";
+"minute_text" = "Minutos";
 
 "countdown_to_title" = "Contagem regressiva para";
 "settings_title" = "Configurações";
@@ -36,7 +37,6 @@
 "delete_event" = "Excluir";
 "past_events" = "Eventos passados";
 
-
 "elapsed_days_label" = "Dias";
 "elapsed_hours_label" = "Horas";
 "elapsed_minutes_label" = "Minutos";
@@ -48,3 +48,6 @@
 "delete_event_message" = "Esta ação não pode ser desfeita.";
 "cancel" = "Cancelar";
 "delete" = "Excluir";
+
+"error_title_required" = "Título Obrigatório";
+"error_title_required_message" = "Por favor, insira um título para seu evento.";

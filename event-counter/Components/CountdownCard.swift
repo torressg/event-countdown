@@ -44,7 +44,7 @@ struct CountdownCard: View {
         } else if let title = title {
             return title.wrappedValue
         }
-        return "New Event"
+        return "new_countdown_name".localized
     }
     
     private var displayDate: Date {

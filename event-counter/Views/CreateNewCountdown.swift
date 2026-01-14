@@ -17,6 +17,7 @@ struct CreateNewCountdownView: View {
     @State private var eventDate: Date = {
         Calendar.current.date(byAdding: .day, value: 7, to: Date()) ?? Date()
     }()
+    @State private var showTitleRequiredAlert = false
     
     var body: some View {
             ScrollView {
@@ -42,12 +43,22 @@ struct CreateNewCountdownView: View {
             }
             .navigationTitle("countdown_to_title".localized)
             .navigationBarTitleDisplayMode(.inline)
+            .alert("error_title_required".localized, isPresented: $showTitleRequiredAlert) {
+                Button("done_button".localized, role: .cancel) {}
+            } message: {
+                Text("error_title_required_message".localized)
+            }
         }
     
     private func saveEvent() {
+        guard !eventTitle.isEmpty else {
+            showTitleRequiredAlert = true
+            return
+        }
+        
         let newEvent = CountdownEvent(
-            title: eventTitle.isEmpty ? "New Event" : eventTitle,
-            eventDate: eventDate,
+            title: eventTitle,
+            eventDate: eventDate
         )
         
         modelContext.insert(newEvent)
