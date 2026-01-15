@@ -15,7 +15,30 @@ struct CountdownDetailView: View {
             VStack(spacing: 24) {
                 CountdownCard(event: event)
                 
-                Spacer(minLength: 40)
+                Toggle(isOn: Binding(
+                                get: { event.hasNotification },
+                                set: { newValue in
+                                    event.hasNotification = newValue
+                                    if newValue {
+                                        NotificationManager.shared.scheduleNotification(for: event)
+                                    } else {
+                                        NotificationManager.shared.cancelNotification(for: event)
+                                    }
+                                }
+                            )) {
+                                HStack {
+                                    Image(systemName: "bell.fill")
+                                    Text("set_notification".localized)
+                                }
+                            }
+                            .disabled(event.eventDate < Date())
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color(.secondarySystemBackground))
+                            )
+                            .glassEffect(.regular.tint(event.eventDate < Date() ? .gray : .green), in: .rect(cornerRadius: 10))
+                            .opacity(event.eventDate < Date() ? 0.5 : 1.0)
                 
                 Button(role: .destructive) {
                     showDeleteConfirmation = true
@@ -64,6 +87,10 @@ struct CountdownDetailView: View {
     }
     
     private func deleteEvent() {
+        if event.hasNotification {
+            NotificationManager.shared.cancelNotification(for: event)
+        }
+        
         modelContext.delete(event)
         
         do {

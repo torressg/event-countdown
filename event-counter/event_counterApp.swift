@@ -12,6 +12,10 @@ import SwiftData
 struct event_counterApp: App {
     @StateObject private var languageManager = LanguageManager.shared
     
+    init() {
+        NotificationManager.shared.requestPermission()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

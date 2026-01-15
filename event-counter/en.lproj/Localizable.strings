@@ -26,6 +26,7 @@
 "set_notification" = "Set a notification";
 "email" = "Email";
 "notification" = "Notification";
+"notification_body" = "Your event is happening now!";
 
 "countdown_name_placeholder" = "Countdown name";
 "select_date" = "Select date";
