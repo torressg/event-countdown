@@ -17,8 +17,7 @@ struct PastView: View {
     private var allEvents: [CountdownEvent]
     
     private var pastEvents: [CountdownEvent] {
-        let now = Date()
-        return allEvents.filter { $0.eventDate < now }
+        allEvents.filter { $0.eventType == "past" }
     }
     
     var body: some View {

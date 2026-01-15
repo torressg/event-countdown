@@ -7,6 +7,7 @@ final class CountdownEvent {
     var title: String
     var eventDate: Date
     var createdAt: Date
+    var eventType: String = "future"
     
     @Relationship(deleteRule: .cascade,)
     
@@ -14,7 +15,9 @@ final class CountdownEvent {
         self.id = UUID()
         self.title = title
         self.eventDate = eventDate
-        self.createdAt = Date()
+        let now = Date()
+        self.createdAt = now
+        self.eventType = eventDate < now ? "past" : "future"
     }
     
     var isPast: Bool {

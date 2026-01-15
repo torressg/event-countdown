@@ -14,9 +14,7 @@ struct CreateNewCountdownView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var eventTitle: String = "new_countdown_name".localized
-    @State private var eventDate: Date = {
-        Calendar.current.date(byAdding: .day, value: 7, to: Date()) ?? Date()
-    }()
+    @State private var eventDate: Date = Date()
     @State private var showTitleRequiredAlert = false
     
     var body: some View {
@@ -41,7 +39,7 @@ struct CreateNewCountdownView: View {
                 }
                 .padding()
             }
-            .navigationTitle("countdown_to_title".localized)
+            .navigationTitle("new_event_title".localized)
             .navigationBarTitleDisplayMode(.inline)
             .alert("error_title_required".localized, isPresented: $showTitleRequiredAlert) {
                 Button("done_button".localized, role: .cancel) {}

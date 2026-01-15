@@ -5,7 +5,7 @@
 "section_past" = "Passado";
 "section_picker_label" = "Seção";
 
-"new_countdown_button" = "Nova Contagem para Evento";
+"new_countdown_button" = "Novo Evento";
 "new_countdown_name" = "Próxima sexta";
 "create_button" = "Criar";
 "done_button" = "Concluir";
@@ -16,9 +16,12 @@
 "minute_text" = "Minutos";
 
 "countdown_to_title" = "Contagem regressiva para";
+"new_event_title" = "Novo Evento";
 "settings_title" = "Configurações";
 "select_date_title" = "Selecionar Data";
 "your_events" = "Seus eventos";
+"days_since" = "Dias desde";
+"days_until" = "Dias até";
 
 "set_notification" = "Definir uma notificação";
 "email" = "E-mail";

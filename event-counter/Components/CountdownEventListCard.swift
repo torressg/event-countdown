@@ -6,16 +6,10 @@ struct CountdownEventListCard: View {
     let event: CountdownEvent
     
     @StateObject private var countdownViewModel: CountdownClockViewModel
-    @StateObject private var elapsedViewModel: ElapsedTimeViewModel
     
     init(event: CountdownEvent) {
         self.event = event
         self._countdownViewModel = StateObject(wrappedValue: CountdownClockViewModel(targetDate: event.eventDate))
-        self._elapsedViewModel = StateObject(wrappedValue: ElapsedTimeViewModel(eventDate: event.eventDate))
-    }
-    
-    private var isPast: Bool {
-        event.eventDate < Date()
     }
     
     private var formattedDate: String {
@@ -38,11 +32,7 @@ struct CountdownEventListCard: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            if isPast {
-                ElapsedTimeView(elapsedTime: elapsedViewModel.elapsedTime)
-            } else {
-                CountdownClockView(viewModel: countdownViewModel)
-            }
+            CountdownClockView(viewModel: countdownViewModel)
         }
         .padding()
         .background(

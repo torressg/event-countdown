@@ -17,8 +17,7 @@ struct FutureView: View {
     private var allEvents: [CountdownEvent]
     
     private var futureEvents: [CountdownEvent] {
-        let now = Date()
-        return allEvents.filter { $0.eventDate >= now }
+        allEvents.filter { $0.eventType == "future" }
     }
     
     var body: some View {

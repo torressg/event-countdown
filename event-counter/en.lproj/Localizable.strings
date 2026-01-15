@@ -5,7 +5,7 @@
 "section_past" = "Past";
 "section_picker_label" = "Section";
 
-"new_countdown_button" = "New Countdown";
+"new_countdown_button" = "New Event";
 "new_countdown_name" = "Next friday";
 "create_button" = "Create";
 "done_button" = "Done";
@@ -16,9 +16,12 @@
 "minute_text" = "Minutes";
 
 "countdown_to_title" = "Countdown to";
+"new_event_title" = "New Event";
 "settings_title" = "Settings";
 "select_date_title" = "Select Date";
 "your_events" = "Your events";
+"days_since" = "Days since";
+"days_until" = "Days until";
 
 "set_notification" = "Set a notification";
 "email" = "Email";

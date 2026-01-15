@@ -13,17 +13,21 @@ class CountdownViewModel {
     func differenceString(to eventDate: Date) -> String {
         let calendar = Calendar.current
 
+        let (fromDate, toDate) = eventDate < Date() 
+            ? (eventDate, Date()) 
+            : (Date(), eventDate)
+        
         let components = calendar.dateComponents(
             [.month, .day, .hour, .minute, .second],
-            from: Date(),
-            to: eventDate
+            from: fromDate,
+            to: toDate
         )
 
-        let months = max(0, components.month ?? 0)
-        var days   = max(0, components.day ?? 0)
-        var hours  = max(0, components.hour ?? 0)
-        var minutes = max(0, components.minute ?? 0)
-        let seconds = max(0, components.second ?? 0)
+        let months = components.month ?? 0
+        var days   = components.day ?? 0
+        var hours  = components.hour ?? 0
+        var minutes = components.minute ?? 0
+        let seconds = components.second ?? 0
         
         if seconds > 0 {
             minutes += 1
